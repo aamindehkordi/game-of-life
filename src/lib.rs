@@ -13,7 +13,8 @@ extern {
     fn alert(s: &str);
 }
 
+
 #[wasm_bindgen]
-pub fn greet() {
-    alert("Hello, game-of-life!");
+pub fn greet(name: &str) {
+    alert(&format!("Hello, {}!", name));
 }
