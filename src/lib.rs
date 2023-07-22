@@ -27,6 +27,7 @@ pub struct Universe {
 #[wasm_bindgen]
 impl Universe {
     pub fn new() -> Universe {
+        utils::set_panic_hook();
         let width = 64;
         let height = 64;
 
@@ -86,6 +87,14 @@ impl Universe {
 
     pub fn tick(&mut self) {
         let mut next = self.cells.clone();
+        extern crate web_sys;
+
+        // A macro to provide `println!(..)`-style syntax for `console.log` logging.
+        macro_rules! log {
+            ( $( $t:tt )* ) => {
+                web_sys::console::log_1(&format!( $( $t )* ).into());
+            }
+        }
 
         for row in 0..self.height {
             for col in 0..self.width {
